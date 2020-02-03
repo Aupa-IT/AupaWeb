@@ -37,11 +37,13 @@
         </div>
     </nav>
     <div class="container-fluid">
-        @RenderBody()
+        <div class="row">
+            @RenderBody()
+        </div>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 </body>
 </html>
