@@ -23,8 +23,11 @@ namespace AupaWeb
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.min.css",
+                      "~/Content/Dashboard.css",
                       "~/Content/site.css"));
+
+
         }
     }
 }
