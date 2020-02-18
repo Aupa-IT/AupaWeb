@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace AupaWeb.Controllers
+namespace DemoPage.Controllers
 {
     public class HomeController : Controller
     {
@@ -13,7 +13,7 @@ namespace AupaWeb.Controllers
             return View();
         }
 
-        public ActionResult NewPost()
+        public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
