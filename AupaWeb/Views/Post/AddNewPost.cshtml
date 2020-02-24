@@ -1,18 +1,56 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "AddNewPost";
 }
 
-
 <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-    <div class="d-flex justify-content-center align-items-center" id="main">
-        <h1 class="mr-3 pr-3 align-top border-right inline-block align-content-center">404</h1>
-        <div class="inline-block align-middle">
-            <h2 class="font-weight-normal lead" id="desc">The page you requested was not found.</h2>
-            <h2 class="font-weight-normal lead" id="desc">@ViewBag.Message</h2>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="container">
+        <div class="table-responsive-md">
+            <div class="panel-title">
+                <div class="row">
+                    <div class="col col-md-6">
+                        <h3 class="panel-title">Panel Heading</h3>
+                    </div>
+                    <div class="col col-md-5 text-right">
+                        <button type="button" class="btn btn-sm btn-primary btn-create" onclick="@("window.location.href='" + @Url.Action("CreatePost", "Post") + "'");">Create New</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th><em class="fa fa-cog"></em></th>
+                            <th>PostID</th>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>PostTime</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var eachPostData in ViewBag.ListOfPosts as List<AupaWeb.Models.PostDataObject>)
+                        {
+                            <tr>
+                                <td align="center">
+                                    <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
+                                    <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                                </td>
+                                <td>@eachPostData.Aaa01</td>
+                                <td>@eachPostData.Aaa02</td>
+                                <td>@eachPostData.Aaa03</td>
+                                <td>@eachPostData.Aaa04</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - Web Application</p>
+                </footer>
+            </div>
         </div>
     </div>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Web Application</p>
-    </footer>
 </main>

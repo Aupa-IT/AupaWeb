@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "CreatePost";
+}
+
+@model AupaWeb.Models.PostDataObject
+
+    <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 mw-100">
+        <br />
+        <br />
+        <br />
+        
+        <br />
+        <div class="offset-md-2 col-md-10">
+            <h2>CreatePost</h2>
+            @using (Html.BeginForm("Create", "Post", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label for="Aaa01">Post ID:</label>
+                    <div>@Html.TextBoxFor(model => model.Aaa01, new { @class = "form-control" })</div>
+
+                </div>
+                <div class="form-group">
+                    <label for="Aaa02">Post Title:</label>
+                    <div>@Html.TextBoxFor(model => model.Aaa02, new { @class = "form-control" })</div>
+                </div>
+                <div class="form-group">
+                    <label for="Aaa03">Content:</label>
+                    <div>@Html.TextAreaFor(model => model.Aaa03,new { @class = "form-control" })</div>
+                </div>
+                <div class="form-group">
+                    <label for="Aaa04">Time:</label>
+                    <div>@Html.TextBoxFor(model => model.Aaa04, new { @class = "form-control" })</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            }
+
+
+        </div>
+    </main>

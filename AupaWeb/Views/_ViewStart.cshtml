@@ -1,3 +1,13 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    string ControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+
+    switch (ControllerName.ToUpper())
+    {
+        case "POST":
+            Layout = "~/Views/Shared/_PostLayoutPage.cshtml";
+            break;
+        default:
+            Layout = "~/Views/Shared/_Layout.cshtml";
+            break;
+    }
 }
