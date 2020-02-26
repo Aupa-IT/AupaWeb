@@ -5,37 +5,39 @@
 
 @model AupaWeb.Models.PostDataObject
 
-    <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 mw-100">
-        <br />
-        <br />
-        <br />
-        
-        <br />
-        <div class="offset-md-2 col-md-10">
-            <h2>CreatePost</h2>
-            @using (Html.BeginForm("Create", "Post", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-                <div class="form-group">
-                    <label for="Aaa01">Post ID:</label>
-                    <div>@Html.TextBoxFor(model => model.Aaa01, new { @class = "form-control" })</div>
+    <body class="bg-light">
+        <div class="container">
+            <div class="py-5 text-center">
+            </div>
 
+            <div class="row">
+                <div class="col-md-4 order-md-2 mb-4">
+                    
                 </div>
-                <div class="form-group">
-                    <label for="Aaa02">Post Title:</label>
-                    <div>@Html.TextBoxFor(model => model.Aaa02, new { @class = "form-control" })</div>
+                <div class="col-md-8 order-md-1">
+                    <h4 class="mb-3">Create Post</h4>
+                    @using (Html.BeginForm("Create", "Post", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Aaa06">Title</label>
+                            @Html.TextBoxFor(model => model.Aaa06, new { @class = "form-control" })
+                        </div>
+                        <div class="mb-3">
+                            <label for="Aaa07">Post Content</label>
+                            @Html.TextAreaFor(model => model.Aaa07, new { @class = "form-control" })
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    }
                 </div>
-                <div class="form-group">
-                    <label for="Aaa03">Content:</label>
-                    <div>@Html.TextAreaFor(model => model.Aaa03,new { @class = "form-control" })</div>
-                </div>
-                <div class="form-group">
-                    <label for="Aaa04">Time:</label>
-                    <div>@Html.TextBoxFor(model => model.Aaa04, new { @class = "form-control" })</div>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            }
-
-
+            </div>
         </div>
-    </main>
+</body>

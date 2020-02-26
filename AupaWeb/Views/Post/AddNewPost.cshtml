@@ -2,55 +2,56 @@
     ViewBag.Title = "AddNewPost";
 }
 
-<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-    <br />
-    <br />
-    <br />
-    <br />
-    <div class="container">
-        <div class="table-responsive-md">
-            <div class="panel-title">
-                <div class="row">
-                    <div class="col col-md-6">
-                        <h3 class="panel-title">Panel Heading</h3>
-                    </div>
-                    <div class="col col-md-5 text-right">
-                        <button type="button" class="btn btn-sm btn-primary btn-create" onclick="@("window.location.href='" + @Url.Action("CreatePost", "Post") + "'");">Create New</button>
+    <body class="bg-light">
+        <div class="container">
+            <br />
+            <br />
+            <br />
+            <br />
+            <h4 class="mb-3">Create Post</h4>
+            <div class="table-responsive-md">
+                <div class="panel-title">
+                    <div class="row">
+                        <div class="col col-md-6">
+                            <h3 class="panel-title">Post History</h3>
+                        </div>
+                        <div class="col col-md-5 text-right">
+                            <button type="button" class="btn btn-sm btn-primary btn-create" onclick="@("window.location.href='" + @Url.Action("CreatePost", "Post") + "'");">Create New</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="panel-body">
-                <table class="table">
-                    <thead class="thead-light">
-                        <tr>
-                            <th><em class="fa fa-cog"></em></th>
-                            <th>PostID</th>
-                            <th>Title</th>
-                            <th>Content</th>
-                            <th>PostTime</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var eachPostData in ViewBag.ListOfPosts as List<AupaWeb.Models.PostDataObject>)
-                        {
+                <div class="panel-body">
+                    <table class="table">
+                        <thead class="thead-light">
                             <tr>
-                                <td align="center">
-                                    <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                                    <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                                </td>
-                                <td>@eachPostData.Aaa01</td>
-                                <td>@eachPostData.Aaa02</td>
-                                <td>@eachPostData.Aaa03</td>
-                                <td>@eachPostData.Aaa04</td>
+                                <th><em class="fa fa-cog"></em></th>
+                                <th>PostDate</th>
+                                <th>Title</th>
+                                <th>Content</th>
+                                <th>PostTime</th>
                             </tr>
-                        }
+                        </thead>
+                        <tbody>
+                            @foreach (var eachPostData in ViewBag.ListOfPosts as List<AupaWeb.Models.PostDataObject>)
+                            {
+                                <tr>
+                                    <td align="center">
+                                        <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
+                                        <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                                    </td>
+                                    <td>@eachPostData.Aaa01</td>
+                                    <td>@eachPostData.Aaa02</td>
+                                    <td>@eachPostData.Aaa03</td>
+                                    <td>@eachPostData.Aaa04</td>
+                                </tr>
+                            }
 
-                    </tbody>
-                </table>
-                <footer>
-                    <p>&copy; @DateTime.Now.Year - Web Application</p>
-                </footer>
+                        </tbody>
+                    </table>
+                    <footer>
+                        <p>&copy; @DateTime.Now.Year - Web Application</p>
+                    </footer>
+                </div>
             </div>
         </div>
-    </div>
-</main>
+    </body>
