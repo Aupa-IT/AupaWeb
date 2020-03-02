@@ -1,10 +1,8 @@
 ﻿using AupaWeb.Models;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 
 namespace AupaWeb.Controllers
 {
@@ -13,7 +11,7 @@ namespace AupaWeb.Controllers
         public ActionResult AddNewPost()
         {
             SQLServerConnector sqlServerConnector = new SQLServerConnector();
-            List<PostDataObject> listPosts = new List<PostDataObject>();
+            List<PostDataObject> listPosts;
             listPosts = sqlServerConnector.getPostsList();
 
             ViewBag.ListOfPosts = listPosts;
@@ -29,13 +27,10 @@ namespace AupaWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "aaa06,aaa07")] PostDataObject postDataObject)
         {
-            SQLServerConnector sQLServer = new SQLServerConnector();
-            List<PostDataObject> listPosts = new List<PostDataObject>();
-            listPosts = getPosts();
-            //if (ModelState.IsValid)
-            //{
-            //    return RedirectToAction("AddNewPost");
-            //}
+            SQLServerConnector sqlServerConnector = new SQLServerConnector();
+            List<PostDataObject> listPosts;
+            listPosts = sqlServerConnector.getPostsList();
+
             postDataObject.Aaa01 = DateTime.Now.ToString("yyyyMMddHHmmss");
             postDataObject.Aaa02 = "";
             postDataObject.Aaa03 = "TEST";
@@ -43,9 +38,10 @@ namespace AupaWeb.Controllers
             postDataObject.Aaa05 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             postDataObject.Aaa08 = "";
 
-            String result = sQLServer.InsertPostData(postDataObject);
+            String result = sqlServerConnector.InsertPostData(postDataObject);
 
-            if (result == "true"){
+            if (result == "SUCCESS")
+            {
                 listPosts.Add(postDataObject);
                 ViewBag.ListOfPosts = listPosts;
                 return View("AddNewPost", listPosts);
@@ -56,37 +52,71 @@ namespace AupaWeb.Controllers
                 return View("AddNewPost", listPosts);
             }
 
-            
-        }
+        }//Create
 
-
-        private List<PostDataObject> getPosts()
+        public ActionResult DeletePost(String postID)
         {
-            PostDataObject fakePost;
-            List<PostDataObject> fakePosts = new List<PostDataObject>();
+            String sqlCriteria = "";
+            if(postID != null && !postID.IsEmpty())
+            {
+                if (postID.StartsWith("*"))
+                {
+                    postID = postID.Remove(1, 1);
+                }
+                if (postID.EndsWith("*"))
+                {
+                    postID = postID.Remove(postID.Length-1, postID.Length);
+                }
+                sqlCriteria = "aaa01 LIKE '%" + postID+"%' ";
+            }
 
-            fakePost = new PostDataObject();
-            fakePost.Aaa01 = "1234567";
-            fakePost.Aaa02 = "First Fake Title";
-            fakePost.Aaa03 = "First Fake Content";
-            //fakePost.Aaa04 = DateTime.Now;
-            fakePosts.Add(fakePost);
+            SQLServerConnector sqlServerConnector = new SQLServerConnector();
+            List<PostDataObject> listPosts;
+            listPosts = sqlServerConnector.getPostsListOnDemand(sqlCriteria);
+            ViewBag.ListOfPosts = listPosts;
+            return View("ConfirmDelete", listPosts);
+        }//End of DeletePost
 
-            fakePost = new PostDataObject();
-            fakePost.Aaa01 = "7654321";
-            fakePost.Aaa02 = "Second Fake Title";
-            fakePost.Aaa03 = "Second Fake Content";
-            //fakePost.Aaa04 = DateTime.Now;
-            fakePosts.Add(fakePost);
+        [HttpPost, ActionName("ConfirmedDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ConfirmedDeletePost(String postID)
+        {
+            SQLServerConnector sqlServerConnector = new SQLServerConnector();
+            List<PostDataObject> listPosts = new List<PostDataObject>();
+            String result = sqlServerConnector.ConfirmedDelete(postID);
+            if (result == "SUCCESS")
+            {
+                listPosts = sqlServerConnector.getPostsList();
+            }
+            ViewBag.ListOfPosts = listPosts;
 
-            fakePost = new PostDataObject();
-            fakePost.Aaa01 = "9876543";
-            fakePost.Aaa02 = "Third Fake Title";
-            fakePost.Aaa03 = "Third Fake Content";
-            //fakePost.Aaa04 = DateTime.Now;
-            fakePosts.Add(fakePost);
+            return View("AddNewPost", listPosts);
+        }// End of ConfirmedDeletePost
 
-            return fakePosts;
+        public ActionResult EditPost(String postID)
+        {
+            String sqlCriteria = "";
+            if (postID != null && !postID.IsEmpty())
+            {
+                if (postID.StartsWith("*"))
+                {
+                    postID = postID.Remove(1, 1);
+                }
+                if (postID.EndsWith("*"))
+                {
+                    postID = postID.Remove(postID.Length - 1, postID.Length);
+                }
+                sqlCriteria = "aaa01 LIKE '%" + postID + "%' ";
+            }
+
+            SQLServerConnector sqlServerConnector = new SQLServerConnector();
+            List<PostDataObject> listPosts;
+
+            listPosts = sqlServerConnector.getPostsListOnDemand(sqlCriteria);
+            ViewBag.ListOfPosts = listPosts;
+
+            return View("EditPost", listPosts);
         }
+
     }
 }

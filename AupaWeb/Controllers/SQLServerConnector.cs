@@ -11,7 +11,6 @@ namespace AupaWeb.Controllers
     {
         private SqlConnection sqlConnection;
         private string actionResult;
-        private int deletedRows;
 
         public SQLServerConnector()
         {
@@ -153,6 +152,107 @@ namespace AupaWeb.Controllers
             }
 
             return postsList;
+        }//End of getPostsList
+
+        public List<PostDataObject> getPostsListOnDemand(String sqlCriteria)
+        {
+            String sqlString = "SELECT * FROM aaa_file WHERE " + sqlCriteria;
+            List<PostDataObject> postsList = new List<PostDataObject>();
+
+            OpenConnection();
+            actionResult = "SUCCESS";
+            try
+            {
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = sqlString;
+
+                SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                if (dataReader.HasRows)
+                {
+                    while (dataReader.Read())
+                    {
+                        PostDataObject postDataObject = new PostDataObject();
+
+                        postDataObject.Aaa01 = dataReader.GetString(dataReader.GetOrdinal("Aaa01"));
+                        postDataObject.Aaa02 = dataReader.GetString(dataReader.GetOrdinal("Aaa02"));
+                        postDataObject.Aaa03 = dataReader.GetString(dataReader.GetOrdinal("Aaa03"));
+                        postDataObject.Aaa04 = dataReader.GetString(dataReader.GetOrdinal("Aaa04"));
+                        postDataObject.Aaa05 = dataReader.GetString(dataReader.GetOrdinal("Aaa05"));
+                        postDataObject.Aaa06 = dataReader.GetString(dataReader.GetOrdinal("Aaa06"));
+                        postDataObject.Aaa07 = dataReader.GetString(dataReader.GetOrdinal("Aaa07"));
+                        postDataObject.Aaa08 = dataReader.GetString(dataReader.GetOrdinal("Aaa08"));
+
+                        postsList.Add(postDataObject);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                actionResult = "FAIL" + ex.Message;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            return postsList;
+        }
+
+        public String DeletePost(String postID)
+        {
+
+            String sqlString = "DELETE FROM aaa_file WHERE aaa01 = '"+postID+"'";
+            List<PostDataObject> postsList = new List<PostDataObject>();
+
+            OpenConnection();
+            actionResult = "SUCCESS";
+            try
+            {
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = sqlString;
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return actionResult;
+        }
+
+        public String ConfirmedDelete(String postID)
+        {
+            String sqlString = "DELETE FROM aaa_file WHERE aaa01 = '" + postID + "'";
+            int deletedRows = 0;
+            actionResult = "SUCCESS";
+            try
+            {
+                OpenConnection();
+
+                SqlCommand sqlCommand = new SqlCommand(sqlString, sqlConnection);
+                deletedRows = sqlCommand.ExecuteNonQuery();
+                if (deletedRows == 0)
+                {
+                    actionResult = "FAIL";
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            return actionResult;
         }
     }
 }
