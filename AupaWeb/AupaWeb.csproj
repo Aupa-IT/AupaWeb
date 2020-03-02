@@ -275,6 +275,8 @@
     <Content Include="Views\Shared\_PostLayoutPage.cshtml" />
     <Content Include="Views\Post\AddNewPost.cshtml" />
     <Content Include="Views\Post\CreatePost.cshtml" />
+    <Content Include="Views\Post\ConfirmDelete.cshtml" />
+    <Content Include="Views\Post\EditPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
