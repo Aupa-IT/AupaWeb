@@ -144,7 +144,8 @@ namespace AupaWeb.Controllers
             }
             catch (Exception ex)
             {
-                actionResult = "FAIL" + ex.Message;
+                string v = "FAIL" + ex.Message;
+                actionResult = v;
             }
             finally
             {
@@ -200,37 +201,10 @@ namespace AupaWeb.Controllers
             return postsList;
         }
 
-        public String DeletePost(String postID)
-        {
-
-            String sqlString = "DELETE FROM aaa_file WHERE aaa01 = '"+postID+"'";
-            List<PostDataObject> postsList = new List<PostDataObject>();
-
-            OpenConnection();
-            actionResult = "SUCCESS";
-            try
-            {
-                SqlCommand sqlCommand = sqlConnection.CreateCommand();
-
-                sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = sqlString;
-                sqlCommand.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-            finally
-            {
-                CloseConnection();
-            }
-            return actionResult;
-        }
-
         public String ConfirmedDelete(String postID)
         {
             String sqlString = "DELETE FROM aaa_file WHERE aaa01 = '" + postID + "'";
-            int deletedRows = 0;
+            int deletedRows;
             actionResult = "SUCCESS";
             try
             {
@@ -251,6 +225,39 @@ namespace AupaWeb.Controllers
             {
                 CloseConnection();
             }
+
+            return actionResult;
+        }
+
+        public String ConfirmedEdit(PostDataObject postDataObject)
+        {
+            String sqlString = "UPDATE aaa_file SET aaa05 = @val01," +
+                               "                    aaa06 = @val02," +
+                               "                    aaa07 = @val03 " +
+                               "WHERE aaa01 = @val04 "+
+                               "";
+            actionResult = "SUCCESS";
+            try
+            {
+                OpenConnection();
+
+                SqlCommand sqlCommand = new SqlCommand(sqlString, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@val01", postDataObject.Aaa05);
+                sqlCommand.Parameters.AddWithValue("@val02", postDataObject.Aaa06);
+                sqlCommand.Parameters.AddWithValue("@val03", postDataObject.Aaa07);
+                sqlCommand.Parameters.AddWithValue("@val04", postDataObject.Aaa01);
+                sqlCommand.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                actionResult = "Fail" + ex.Message;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
 
             return actionResult;
         }

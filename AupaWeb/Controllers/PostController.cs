@@ -95,27 +95,37 @@ namespace AupaWeb.Controllers
 
         public ActionResult EditPost(String postID)
         {
-            String sqlCriteria = "";
-            if (postID != null && !postID.IsEmpty())
-            {
-                if (postID.StartsWith("*"))
-                {
-                    postID = postID.Remove(1, 1);
-                }
-                if (postID.EndsWith("*"))
-                {
-                    postID = postID.Remove(postID.Length - 1, postID.Length);
-                }
-                sqlCriteria = "aaa01 LIKE '%" + postID + "%' ";
-            }
-
             SQLServerConnector sqlServerConnector = new SQLServerConnector();
             List<PostDataObject> listPosts;
+            PostDataObject postDataObjectForEdit;
+            String sqlCriteria = "aaa01 = '" + postID + "'";
 
             listPosts = sqlServerConnector.getPostsListOnDemand(sqlCriteria);
+
+            postDataObjectForEdit = listPosts[0];
+            //ViewBag.ListOfPosts = listPosts;
+            ViewBag.PostDataForEdit = postDataObjectForEdit;
+
+            return View("EditPost", postDataObjectForEdit);
+        }
+
+        [HttpPost, ActionName("ConfirmedEdit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdatePost([Bind(Include ="Aaa01,Aaa06,Aaa07")] PostDataObject postDataObject)
+        {
+            SQLServerConnector sqlServerConnector = new SQLServerConnector();
+
+            postDataObject.Aaa05 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            String result = sqlServerConnector.ConfirmedEdit(postDataObject);
+            List<PostDataObject> listPosts = new List<PostDataObject>();
+            if (result == "SUCCESS")
+            {
+                listPosts = sqlServerConnector.getPostsList();
+            }
+
             ViewBag.ListOfPosts = listPosts;
 
-            return View("EditPost", listPosts);
+            return View("AddNewPost", listPosts);
         }
 
     }

@@ -16,7 +16,7 @@
                         <h3 class="panel-title">Post History</h3>
                     </div>
                     <div class="col col-md-5 text-right">
-                        <button type="button" class="btn btn-sm btn-primary btn-create" onclick="@("window.location.href='" + @Url.Action("CreatePost", "Post") + "'");">Create New</button>
+                        <button type="button" class="btn btn-outline-primary" onclick="@("window.location.href='" + @Url.Action("CreatePost", "Post") + "'");">Create New</button>
                     </div>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                 <table class="table">
                     <thead class="thead-light">
                         <tr>
-                            <th align="center" style="width: 140px">Operation</th>
+                            <th align="center" style="width: 180px">Operation</th>
                             <th style="width: 200px">PostDate</th>
                             <th style="width: 200px">Title</th>
                             <th style="width: 300px">Content</th>
@@ -35,8 +35,9 @@
                         {
                             <tr>
                                 <td align="center">
-                                    <a class="btn btn-default"><em class="fa fa-pencil" onclick="@("window.location.href='" + @Url.Action("EditPost", "Post", new { postID=eachPostData.Aaa01}) + "'");"></em></a>
-                                    <a class="btn btn-danger"><em class="fa fa-trash" onclick="@("window.location.href='" + @Url.Action("DeletePost", "Post", new { postID=eachPostData.Aaa01}) + "'");"></em></a>
+                                    <a class="btn btn-sm btn-outline-secondary" onclick="@("window.location.href='" + @Url.Action("EditPost", "Post", new { postID=eachPostData.Aaa01}) + "'");">EDIT</a>
+                                    &nbsp;&nbsp;
+                                    <a class="btn btn-sm btn-outline-danger" onclick="@("window.location.href='" + @Url.Action("DeletePost", "Post", new { postID=eachPostData.Aaa01}) + "'");">DELETE</a>
                                 </td>
                                 <td>@eachPostData.Aaa04</td>
                                 <td>@eachPostData.Aaa06</td>

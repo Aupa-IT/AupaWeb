@@ -18,7 +18,7 @@
                 <h4 class="mb-3">Confirm Delete Post</h4>
                 @foreach (var eachPostData in ViewBag.ListOfPosts as List<AupaWeb.Models.PostDataObject>)
                 {
-                    using (Html.BeginForm("ConfirmedDelete", "Post", new { postID = eachPostData.Aaa01}, FormMethod.Post))
+                    using (Html.BeginForm("ConfirmedDelete", "Post", new { postID = eachPostData.Aaa01 }, FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         <div class="row">
@@ -38,7 +38,10 @@
                             <div class="col-md-6 mb-3">
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-primary" value="Delete" onclick="@("window.location.href='" + @Url.Action("DeleteConfirmed", "Post",new { postID=eachPostData.Aaa01}) + "'");" />
+                        <input type="submit" class="btn btn-primary" value="Delete" 
+                               onclick="@("window.location.href='" + @Url.Action("DeleteConfirmed", "Post",
+                                        new { postID=eachPostData.Aaa01}) + "'");" />
+                        <button type="button" class="btn btn-primary" onclick="history.go(-1)">Cancel</button>
                     }
                 }
             </div>

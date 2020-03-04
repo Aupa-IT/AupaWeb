@@ -3,7 +3,7 @@
     ViewBag.Title = "EditPost";
 }
 
-@model IEnumerable<AupaWeb.Models.PostDataObject>
+@model AupaWeb.Models.PostDataObject
 
 <body class="bg-light">
     <div class="container">
@@ -16,30 +16,30 @@
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Confirm Delete Post</h4>
-                @foreach (var eachPostData in ViewBag.ListOfPosts as List<AupaWeb.Models.PostDataObject>)
+                @using (Html.BeginForm("ConfirmedEdit", "Post", new { postID = Model.Aaa01 }, FormMethod.Post))
                 {
-                    using (Html.BeginForm("UpdatePost", "Post", new { postID = eachPostData.Aaa01 }, FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <input type="hidden" placeholder="@eachPostData.Aaa01" />
-                            </div>
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            @Html.HiddenFor(model => model.Aaa01)
                         </div>
-                        <div class="mb-3">
-                            <label for="Aaa06">Title</label>
-                            @Html.TextBoxFor(model => @eachPostData.Aaa06, new { @class = "form-control" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="Aaa06">Title</label>
+                        @Html.TextBoxFor(model => model.Aaa06, new { @class = "form-control" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="Aaa07">Post Content</label>
+                        @Html.TextAreaFor(model => model.Aaa07, new { @class = "form-control", rows = "6" })
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
                         </div>
-                        <div class="mb-3">
-                            <label for="Aaa07">Post Content</label>
-                            @Html.TextAreaFor(model => @eachPostData.Aaa07, new { @class = "form-control", rows="6" })
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                            </div>
-                        </div>
-                        <input type="submit" class="btn btn-primary" value="Delete" onclick="@("window.location.href='" + @Url.Action("UpdatePost", "Post",new { postID=eachPostData.Aaa01}) + "'");" />
-                    }
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Update"
+                           onclick="@("window.location.href='" + @Url.Action("EditConfirmed", "Post",
+                                        new { postID=Model.Aaa01}) + "'");" />
+                    <button type="button" class="btn btn-primary" onclick="history.go(-1)">Cancel</button>
                 }
             </div>
         </div>
