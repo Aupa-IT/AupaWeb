@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web.Mvc;
 
 namespace AupaWeb.Models
 {
@@ -22,6 +19,7 @@ namespace AupaWeb.Models
         public string Aaa04 { get => aaa04; set => aaa04 = value; }
         public string Aaa05 { get => aaa05; set => aaa05 = value; }
         public string Aaa06 { get => aaa06; set => aaa06 = value; }
+        [AllowHtml]
         public string Aaa07 { get => aaa07; set => aaa07 = value; }
         public string Aaa08 { get => aaa08; set => aaa08 = value; }
     }

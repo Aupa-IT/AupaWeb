@@ -40,17 +40,7 @@ namespace AupaWeb.Controllers
 
             String result = sqlServerConnector.InsertPostData(postDataObject);
 
-            if (result == "SUCCESS")
-            {
-                listPosts.Add(postDataObject);
-                ViewBag.ListOfPosts = listPosts;
-                return View("AddNewPost", listPosts);
-            }
-            else
-            {
-                ViewBag.ListOfPosts = listPosts;
-                return View("AddNewPost", listPosts);
-            }
+            return RedirectToAction("AddNewPost","Post");
 
         }//Create
 
@@ -90,7 +80,8 @@ namespace AupaWeb.Controllers
             }
             ViewBag.ListOfPosts = listPosts;
 
-            return View("AddNewPost", listPosts);
+            //return View("AddNewPost", listPosts);
+            return RedirectToAction("AddNewPost", "Post");
         }// End of ConfirmedDeletePost
 
         public ActionResult EditPost(String postID)
@@ -125,7 +116,8 @@ namespace AupaWeb.Controllers
 
             ViewBag.ListOfPosts = listPosts;
 
-            return View("AddNewPost", listPosts);
+            //return View("AddNewPost", listPosts);
+            return RedirectToAction("AddNewPost", "Post");
         }
 
     }
