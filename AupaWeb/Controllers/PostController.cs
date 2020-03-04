@@ -34,7 +34,7 @@ namespace AupaWeb.Controllers
             postDataObject.Aaa01 = DateTime.Now.ToString("yyyyMMddHHmmss");
             postDataObject.Aaa02 = "";
             postDataObject.Aaa03 = "TEST";
-            postDataObject.Aaa04 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            postDataObject.Aaa04 = DateTime.Now.ToString("yyyy-MM-dd");
             postDataObject.Aaa05 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             postDataObject.Aaa08 = "";
 

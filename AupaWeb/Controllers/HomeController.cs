@@ -1,7 +1,5 @@
-﻿using System;
+﻿using AupaWeb.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace AupaWeb.Controllers
@@ -10,7 +8,11 @@ namespace AupaWeb.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            SQLServerConnector sqlServerConnector = new SQLServerConnector();
+            List<PostDataObject> postList;
+            postList = sqlServerConnector.getTopPostsList(3);
+            ViewBag.ListOfPosts = postList;
+            return View(postList);
         }
 
         public ActionResult NewPost()

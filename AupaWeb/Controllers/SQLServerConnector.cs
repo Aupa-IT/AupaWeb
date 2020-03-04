@@ -109,7 +109,62 @@ namespace AupaWeb.Controllers
 
         public List<PostDataObject> getPostsList()
         {
-            String sqlString = "SELECT * FROM aaa_file";
+            String sqlString = "SELECT * FROM aaa_file" +
+                               " ORDER BY aaa01 DESC" +
+                               "";
+            List<PostDataObject> postsList = new List<PostDataObject>();
+
+            OpenConnection();
+            actionResult = "SUCCESS";
+
+            try
+            {
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = sqlString;
+
+                SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                if (dataReader.HasRows)
+                {
+                    while (dataReader.Read())
+                    {
+                        PostDataObject postDataObject = new PostDataObject();
+
+                        postDataObject.Aaa01 = dataReader.GetString(dataReader.GetOrdinal("Aaa01"));
+                        postDataObject.Aaa02 = dataReader.GetString(dataReader.GetOrdinal("Aaa02"));
+                        postDataObject.Aaa03 = dataReader.GetString(dataReader.GetOrdinal("Aaa03"));
+                        postDataObject.Aaa04 = dataReader.GetString(dataReader.GetOrdinal("Aaa04"));
+                        postDataObject.Aaa05 = dataReader.GetString(dataReader.GetOrdinal("Aaa05"));
+                        postDataObject.Aaa06 = dataReader.GetString(dataReader.GetOrdinal("Aaa06"));
+                        postDataObject.Aaa07 = dataReader.GetString(dataReader.GetOrdinal("Aaa07"));
+                        postDataObject.Aaa08 = dataReader.GetString(dataReader.GetOrdinal("Aaa08"));
+
+                        postsList.Add(postDataObject);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string v = "FAIL" + ex.Message;
+                actionResult = v;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            return postsList;
+        }//End of getPostsList
+
+        public List<PostDataObject> getTopPostsList(int num)
+        {
+            String sqlString = "SELECT TOP "+num+
+                               "       aaa01, aaa02, aaa03, aaa04, aaa05, "+
+                               "       aaa06, aaa07, aaa08 "+
+                               " FROM aaa_file "+
+                               " ORDER BY aaa01 DESC"+
+                               "";
             List<PostDataObject> postsList = new List<PostDataObject>();
 
             OpenConnection();
