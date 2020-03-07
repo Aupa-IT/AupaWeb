@@ -125,10 +125,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\SQLServerConnector.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\IndexModel.cs" />
     <Compile Include="Models\PostDataObject.cs" />
+    <Compile Include="Models\UserBasicObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +143,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dashboard.css" />
     <Content Include="Content\image\aupalogo.jpg" />
+    <Content Include="Content\signin\signin.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -182,6 +186,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\script-custom-editor.js" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
     <Content Include="Scripts\src\methods\destroy.js" />
@@ -278,9 +283,12 @@
     <Content Include="Views\Post\CreatePost.cshtml" />
     <Content Include="Views\Post\ConfirmDelete.cshtml" />
     <Content Include="Views\Post\EditPost.cshtml" />
+    <Content Include="Views\User\SignIn.cshtml" />
+    <Content Include="Views\Shared\_UserLayoutPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

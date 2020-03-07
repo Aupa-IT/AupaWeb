@@ -27,7 +27,12 @@ namespace AupaWeb
                       "~/Content/Dashboard.css",
                       "~/Content/site.css"));
 
+            bundles.Add(new ScriptBundle("~/bundles/Script-custom-editor").Include(
+                       "~/Scripts/script-custom-editor.js"));
 
+            bundles.Add(new StyleBundle("~/Content/signin/css").Include(
+                      "~/Content/signin/signin.css"
+                       ));
         }
     }
 }

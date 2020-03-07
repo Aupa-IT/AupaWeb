@@ -6,14 +6,20 @@ namespace AupaWeb.Controllers
 {
     public class HomeController : Controller
     {
+        [AllowAnonymous]
         public ActionResult Index()
         {
+            IndexModel indexModel = new IndexModel();
             SQLServerConnector sqlServerConnector = new SQLServerConnector();
             List<PostDataObject> postList;
             postList = sqlServerConnector.getTopPostsList(3);
-            ViewBag.ListOfPosts = postList;
-            return View(postList);
+            indexModel.PostDataObjects = postList;
+
+            //ViewBag.ListOfPosts = postList;
+            //return View(postList);
+            return View(indexModel);
         }
+
 
         public ActionResult NewPost()
         {

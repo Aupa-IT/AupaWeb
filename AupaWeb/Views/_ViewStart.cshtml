@@ -3,8 +3,12 @@
 
     switch (ControllerName.ToUpper())
     {
+        
         case "POST":
             Layout = "~/Views/Shared/_PostLayoutPage.cshtml";
+            break;
+        case "USER":
+            Layout = "~/Views/Shared/_UserLayoutPage.cshtml";
             break;
         default:
             Layout = "~/Views/Shared/_Layout.cshtml";

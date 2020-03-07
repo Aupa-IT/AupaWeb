@@ -10,6 +10,7 @@ namespace AupaWeb.Models
         private string aaa04;
         private string aaa05;
         private string aaa06;
+
         private string aaa07;
         private string aaa08;
 

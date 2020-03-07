@@ -66,6 +66,52 @@ namespace AupaWeb.Controllers
             }
         }
 
+        public UserBasicObject getUserBasicData(UserBasicObject user)
+        {
+            UserBasicObject userBasicObject = new UserBasicObject();
+
+            String sqlString = "SELECT * FROM aba_file " +
+                               " WHERE aba01 = '" + user.Aba01 + "'" +
+                               "   AND aba03 = '" + user.Aba03 + "'" +
+                               "'";
+            OpenConnection();
+            actionResult = "SUCCESS";
+            try
+            {
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = sqlString;
+
+                SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                if (dataReader.HasRows)
+                {
+                    while (dataReader.Read())
+                    {
+                        userBasicObject.Aba01 = dataReader.GetString(dataReader.GetOrdinal("Aba01"));
+                        userBasicObject.Aba02 = dataReader.GetString(dataReader.GetOrdinal("Aba02"));
+                        userBasicObject.Aba03 = dataReader.GetString(dataReader.GetOrdinal("Aba03"));
+                        userBasicObject.Aba04 = dataReader.GetString(dataReader.GetOrdinal("Aba04"));
+                        userBasicObject.Aba05 = dataReader.GetString(dataReader.GetOrdinal("Aba05"));
+                        userBasicObject.Aba06 = dataReader.GetString(dataReader.GetOrdinal("Aba06"));
+                        userBasicObject.Aba07 = dataReader.GetString(dataReader.GetOrdinal("Aba07"));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string v = "FAIL" + ex.Message;
+                actionResult = v;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+
+            return userBasicObject;
+        }
+
         public String InsertPostData(PostDataObject postDataObjec)
         {
             String sqlString = "INSERT INTO aaa_file ( " +

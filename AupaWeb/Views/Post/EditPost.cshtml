@@ -18,7 +18,6 @@
                 <h4 class="mb-3">Confirm Delete Post</h4>
                 @using (Html.BeginForm("ConfirmedEdit", "Post", new { postID = Model.Aaa01 }, FormMethod.Post))
                 {
-                    @Html.AntiForgeryToken()
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             @Html.HiddenFor(model => model.Aaa01)

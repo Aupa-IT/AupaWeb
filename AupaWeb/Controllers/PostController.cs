@@ -8,6 +8,7 @@ namespace AupaWeb.Controllers
 {
     public class PostController : Controller
     {
+        [Authorize]
         public ActionResult AddNewPost()
         {
             SQLServerConnector sqlServerConnector = new SQLServerConnector();
@@ -17,14 +18,13 @@ namespace AupaWeb.Controllers
             ViewBag.ListOfPosts = listPosts;
             return View(listPosts);
         }
-        // GET: Students/Create
+         [Authorize]
         public ActionResult CreatePost()
         {
             return View();
         }
         // POST: Students/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "aaa06,aaa07")] PostDataObject postDataObject)
         {
             SQLServerConnector sqlServerConnector = new SQLServerConnector();
@@ -68,7 +68,6 @@ namespace AupaWeb.Controllers
         }//End of DeletePost
 
         [HttpPost, ActionName("ConfirmedDelete")]
-        [ValidateAntiForgeryToken]
         public ActionResult ConfirmedDeletePost(String postID)
         {
             SQLServerConnector sqlServerConnector = new SQLServerConnector();
@@ -101,7 +100,6 @@ namespace AupaWeb.Controllers
         }
 
         [HttpPost, ActionName("ConfirmedEdit")]
-        [ValidateAntiForgeryToken]
         public ActionResult UpdatePost([Bind(Include ="Aaa01,Aaa06,Aaa07")] PostDataObject postDataObject)
         {
             SQLServerConnector sqlServerConnector = new SQLServerConnector();

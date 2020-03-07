@@ -24,6 +24,12 @@ namespace AupaWeb
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Post", action = "AddNewPost", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "User",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "User", action = "SignIn", id = UrlParameter.Optional }
+            );
+
         }
     }
 }
