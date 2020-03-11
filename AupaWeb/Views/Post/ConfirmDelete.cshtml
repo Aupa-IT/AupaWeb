@@ -20,7 +20,6 @@
                 {
                     using (Html.BeginForm("ConfirmedDelete", "Post", new { postID = eachPostData.Aaa01 }, FormMethod.Post))
                     {
-                        @Html.AntiForgeryToken()
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <input type="hidden" placeholder="@eachPostData.Aaa01" />

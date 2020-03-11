@@ -123,6 +123,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PageOperation.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\SQLServerConnector.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -130,7 +131,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\IndexModel.cs" />
+    <Compile Include="Models\PageBean.cs" />
     <Compile Include="Models\PostDataObject.cs" />
+    <Compile Include="Models\PostDataViewModel.cs" />
     <Compile Include="Models\UserBasicObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

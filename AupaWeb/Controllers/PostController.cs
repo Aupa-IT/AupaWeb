@@ -12,13 +12,101 @@ namespace AupaWeb.Controllers
         public ActionResult AddNewPost()
         {
             SQLServerConnector sqlServerConnector = new SQLServerConnector();
+            //PageBean pageBean = new PageBean();
             List<PostDataObject> listPosts;
-            listPosts = sqlServerConnector.getPostsList();
+            List<PageBean> pageNumberList;
+            //listPosts = sqlServerConnector.GetPostsList();
+            int pageTotalCount = sqlServerConnector.GetTotalCount();
 
-            ViewBag.ListOfPosts = listPosts;
-            return View(listPosts);
+            PageOperation pageOperation = new PageOperation(pageTotalCount);
+            int currentPage = 1;
+            pageNumberList = pageOperation.GetPageNumberList();
+            int pageCount = pageOperation.GetPageCount();
+            int startPageNum = pageOperation.GetStartNumber(currentPage);
+            int endPageNum = pageOperation.GetEndNumber();
+            int previousPageNumber = 1;
+            int nextPageNumber = previousPageNumber + 1;
+            listPosts = sqlServerConnector.GetLimitPostsList("0", "5");
+
+            PostDataViewModel postDataViewModel = new PostDataViewModel();
+            postDataViewModel.PostDataList = listPosts;
+            postDataViewModel.PageNumberList = pageNumberList;
+            postDataViewModel.PageCount = pageCount;
+            postDataViewModel.CurrentPage = currentPage;
+            postDataViewModel.StrPageNum = startPageNum;
+            postDataViewModel.EndPageNum = endPageNum;
+            postDataViewModel.PreviousPageNumber = previousPageNumber;
+            postDataViewModel.NextPageNumber = nextPageNumber;
+            postDataViewModel.FirstPage = true;
+            postDataViewModel.LastPage = false;
+
+            //ViewBag.ListOfPosts = listPosts;
+            //return View(listPosts);
+            return View(postDataViewModel);
         }
-         [Authorize]
+        [Authorize]
+        public ActionResult ToPage(String postID)
+        {
+            SQLServerConnector sqlServerConnector = new SQLServerConnector();
+            //PageBean pageBean = new PageBean();
+            List<PostDataObject> listPosts;
+            List<PageBean> pageNumberList;
+            //listPosts = sqlServerConnector.GetPostsList();
+            int pageTotalCount = sqlServerConnector.GetTotalCount();
+
+            PageOperation pageOperation = new PageOperation(pageTotalCount);
+            int currentPage = int.Parse(postID);
+            pageNumberList = pageOperation.GetPageNumberList();
+            int pageCount = pageOperation.GetPageCount();
+            int startPageNum = pageOperation.GetStartNumber(currentPage);
+            int endPageNum = pageOperation.GetEndNumber();
+            int previousPageNumber = 1;
+            int nextPageNumber = previousPageNumber + int.Parse(postID);
+            if (currentPage == 1)
+            {
+                startPageNum = 0;
+            }
+            listPosts = sqlServerConnector.GetLimitPostsList(startPageNum.ToString(), "5");
+
+            PostDataViewModel postDataViewModel = new PostDataViewModel();
+            postDataViewModel.PostDataList = listPosts;
+            postDataViewModel.PageNumberList = pageNumberList;
+            postDataViewModel.PageCount = pageCount;
+            postDataViewModel.CurrentPage = currentPage;
+            postDataViewModel.StrPageNum = startPageNum;
+            postDataViewModel.EndPageNum = endPageNum;
+            postDataViewModel.PreviousPageNumber = previousPageNumber;
+            postDataViewModel.NextPageNumber = nextPageNumber;
+            if (startPageNum == 0)
+            {
+                postDataViewModel.FirstPage = true;
+            }
+            else
+            {
+                postDataViewModel.FirstPage = false;
+            }
+            if(currentPage == pageNumberList.Count)
+            {
+                postDataViewModel.LastPage = true;
+            }
+            else
+            {
+                postDataViewModel.LastPage = false;
+            }
+            
+
+            TempData["postDataViewModel"] = postDataViewModel;
+
+            return Redirect("BackToAddNewPost");
+        }
+
+        public ActionResult BackToAddNewPost()
+        {
+            PostDataViewModel postDataViewModel = (PostDataViewModel)TempData["postDataViewModel"];
+            return View("AddNewPost", postDataViewModel);
+        }
+
+        [Authorize]
         public ActionResult CreatePost()
         {
             return View();
@@ -28,8 +116,8 @@ namespace AupaWeb.Controllers
         public ActionResult Create([Bind(Include = "aaa06,aaa07")] PostDataObject postDataObject)
         {
             SQLServerConnector sqlServerConnector = new SQLServerConnector();
-            List<PostDataObject> listPosts;
-            listPosts = sqlServerConnector.getPostsList();
+            //List<PostDataObject> listPosts;
+            //listPosts = sqlServerConnector.getPostsList();
 
             postDataObject.Aaa01 = DateTime.Now.ToString("yyyyMMddHHmmss");
             postDataObject.Aaa02 = "";
@@ -62,7 +150,7 @@ namespace AupaWeb.Controllers
 
             SQLServerConnector sqlServerConnector = new SQLServerConnector();
             List<PostDataObject> listPosts;
-            listPosts = sqlServerConnector.getPostsListOnDemand(sqlCriteria);
+            listPosts = sqlServerConnector.GetPostsListOnDemand(sqlCriteria);
             ViewBag.ListOfPosts = listPosts;
             return View("ConfirmDelete", listPosts);
         }//End of DeletePost
@@ -75,7 +163,7 @@ namespace AupaWeb.Controllers
             String result = sqlServerConnector.ConfirmedDelete(postID);
             if (result == "SUCCESS")
             {
-                listPosts = sqlServerConnector.getPostsList();
+                listPosts = sqlServerConnector.GetPostsList();
             }
             ViewBag.ListOfPosts = listPosts;
 
@@ -90,7 +178,7 @@ namespace AupaWeb.Controllers
             PostDataObject postDataObjectForEdit;
             String sqlCriteria = "aaa01 = '" + postID + "'";
 
-            listPosts = sqlServerConnector.getPostsListOnDemand(sqlCriteria);
+            listPosts = sqlServerConnector.GetPostsListOnDemand(sqlCriteria);
 
             postDataObjectForEdit = listPosts[0];
             //ViewBag.ListOfPosts = listPosts;
@@ -109,7 +197,7 @@ namespace AupaWeb.Controllers
             List<PostDataObject> listPosts = new List<PostDataObject>();
             if (result == "SUCCESS")
             {
-                listPosts = sqlServerConnector.getPostsList();
+                listPosts = sqlServerConnector.GetPostsList();
             }
 
             ViewBag.ListOfPosts = listPosts;

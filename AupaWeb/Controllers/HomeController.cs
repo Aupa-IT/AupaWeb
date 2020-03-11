@@ -1,4 +1,5 @@
 ﻿using AupaWeb.Models;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -12,7 +13,8 @@ namespace AupaWeb.Controllers
             IndexModel indexModel = new IndexModel();
             SQLServerConnector sqlServerConnector = new SQLServerConnector();
             List<PostDataObject> postList;
-            postList = sqlServerConnector.getTopPostsList(3);
+
+            postList = sqlServerConnector.GetTopPostsList(3);
             indexModel.PostDataObjects = postList;
 
             //ViewBag.ListOfPosts = postList;

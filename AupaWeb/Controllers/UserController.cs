@@ -22,7 +22,7 @@ namespace AupaWeb.Controllers
                 return View(model);
             }
             SQLServerConnector sqlServerConnector = new SQLServerConnector();
-            UserBasicObject userBasicObject = sqlServerConnector.getUserBasicData(model);
+            UserBasicObject userBasicObject = sqlServerConnector.GetUserBasicData(model);
 
             if (userBasicObject == null)
             {

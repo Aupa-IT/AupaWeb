@@ -1,6 +1,7 @@
 ﻿using AupaWeb.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -65,8 +66,37 @@ namespace AupaWeb.Controllers
                 return false;
             }
         }
+        public int GetTotalCount()
+        {
+            String sqlString = "SELECT * FROM aaa_file " +
+                               "";
+            OpenConnection();
+            actionResult = "SUCCESS";
+            int rowcount = 0;
+            try
+            {
+                DataTable dataTable = new DataTable();
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
 
-        public UserBasicObject getUserBasicData(UserBasicObject user)
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = sqlString;
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+                sqlDataAdapter.Fill(dataTable);
+                rowcount = dataTable.Rows.Count;
+            }
+            catch (Exception ex)
+            {
+                string v = "FAIL" + ex.Message;
+                actionResult = v;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return rowcount;
+        }
+
+        public UserBasicObject GetUserBasicData(UserBasicObject user)
         {
             UserBasicObject userBasicObject = new UserBasicObject();
 
@@ -153,7 +183,7 @@ namespace AupaWeb.Controllers
             return actionResult;
         }//End of Insert Into
 
-        public List<PostDataObject> getPostsList()
+        public List<PostDataObject> GetPostsList()
         {
             String sqlString = "SELECT * FROM aaa_file" +
                                " ORDER BY aaa01 DESC" +
@@ -203,7 +233,7 @@ namespace AupaWeb.Controllers
             return postsList;
         }//End of getPostsList
 
-        public List<PostDataObject> getTopPostsList(int num)
+        public List<PostDataObject> GetTopPostsList(int num)
         {
             String sqlString = "SELECT TOP "+num+
                                "       aaa01, aaa02, aaa03, aaa04, aaa05, "+
@@ -254,9 +284,60 @@ namespace AupaWeb.Controllers
             }
 
             return postsList;
-        }//End of getPostsList
+        }//End of getTOPPostsList
 
-        public List<PostDataObject> getPostsListOnDemand(String sqlCriteria)
+        public List<PostDataObject> GetLimitPostsList(String str, String end)
+        {
+            String sqlString = "SELECT * FROM aaa_file" +
+                               " ORDER BY aaa01 DESC" +
+                               " OFFSET " + str + " ROWS FETCH NEXT " + end + " ROWS ONLY " +
+                               "";
+            List<PostDataObject> postsList = new List<PostDataObject>();
+
+            OpenConnection();
+            actionResult = "SUCCESS";
+
+            try
+            {
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = sqlString;
+
+                SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                if (dataReader.HasRows)
+                {
+                    while (dataReader.Read())
+                    {
+                        PostDataObject postDataObject = new PostDataObject();
+
+                        postDataObject.Aaa01 = dataReader.GetString(dataReader.GetOrdinal("Aaa01"));
+                        postDataObject.Aaa02 = dataReader.GetString(dataReader.GetOrdinal("Aaa02"));
+                        postDataObject.Aaa03 = dataReader.GetString(dataReader.GetOrdinal("Aaa03"));
+                        postDataObject.Aaa04 = dataReader.GetString(dataReader.GetOrdinal("Aaa04"));
+                        postDataObject.Aaa05 = dataReader.GetString(dataReader.GetOrdinal("Aaa05"));
+                        postDataObject.Aaa06 = dataReader.GetString(dataReader.GetOrdinal("Aaa06"));
+                        postDataObject.Aaa07 = dataReader.GetString(dataReader.GetOrdinal("Aaa07"));
+                        postDataObject.Aaa08 = dataReader.GetString(dataReader.GetOrdinal("Aaa08"));
+
+                        postsList.Add(postDataObject);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string v = "FAIL" + ex.Message;
+                actionResult = v;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            return postsList;
+        }//End of getLimitPostsList
+
+        public List<PostDataObject> GetPostsListOnDemand(String sqlCriteria)
         {
             String sqlString = "SELECT * FROM aaa_file WHERE " + sqlCriteria;
             List<PostDataObject> postsList = new List<PostDataObject>();
