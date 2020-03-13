@@ -13,10 +13,11 @@ namespace AupaWeb.Controllers
             IndexModel indexModel = new IndexModel();
             SQLServerConnector sqlServerConnector = new SQLServerConnector();
             List<PostDataObject> postList;
-
+            List<CarouselDataObject> carouselsLis;
             postList = sqlServerConnector.GetTopPostsList(3);
+            carouselsLis = sqlServerConnector.GetTopCarouselList(5);
             indexModel.PostDataObjects = postList;
-
+            indexModel.CarouselDataObjects = carouselsLis;
             //ViewBag.ListOfPosts = postList;
             //return View(postList);
             return View(indexModel);

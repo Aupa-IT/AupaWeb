@@ -103,7 +103,7 @@ namespace AupaWeb.Controllers
             String sqlString = "SELECT * FROM aba_file " +
                                " WHERE aba01 = '" + user.Aba01 + "'" +
                                "   AND aba03 = '" + user.Aba03 + "'" +
-                               "'";
+                               "";
             OpenConnection();
             actionResult = "SUCCESS";
             try
@@ -401,7 +401,7 @@ namespace AupaWeb.Controllers
             }
             catch (Exception ex)
             {
-
+                actionResult = "FAIL" + ex.Message;
             }
             finally
             {
@@ -443,5 +443,63 @@ namespace AupaWeb.Controllers
 
             return actionResult;
         }
+
+        public List<CarouselDataObject> GetTopCarouselList(int num)
+        {
+            String sqlString = "SELECT TOP " + num +
+                               "       aaz01, aaz02, aaz03, aaz05  " +
+                               " FROM aaz_file " +
+                               " ORDER BY aaz01 DESC" +
+                               "";
+            List<CarouselDataObject> carouselsList = new List<CarouselDataObject>();
+
+            OpenConnection();
+            actionResult = "SUCCESS";
+            int carousel_flag = 1;
+
+            try
+            {
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = sqlString;
+
+                SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                if (dataReader.HasRows)
+                {
+                    while (dataReader.Read())
+                    {
+                        CarouselDataObject carouselDataObject = new CarouselDataObject();
+
+                        carouselDataObject.Aaz01 = dataReader.GetString(dataReader.GetOrdinal("Aaz01"));
+                        carouselDataObject.Aaz02 = dataReader.GetString(dataReader.GetOrdinal("Aaz02"));
+                        carouselDataObject.Aaz03 = dataReader.GetString(dataReader.GetOrdinal("Aaz03"));
+                        carouselDataObject.Aaz05 = dataReader.GetString(dataReader.GetOrdinal("Aaz05"));
+
+                        carouselsList.Add(carouselDataObject);
+                        if (carousel_flag == 1)
+                        {
+                            carouselDataObject.Active = true;
+                        }
+                        else
+                        {
+                            carouselDataObject.Active = false;
+                        }
+                        carousel_flag++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string v = "FAIL" + ex.Message;
+                actionResult = v;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            return carouselsList;
+        }//End of getTOPPostsList
     }
 }
