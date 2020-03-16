@@ -444,9 +444,12 @@ namespace AupaWeb.Controllers
             return actionResult;
         }
 
-        public List<CarouselDataObject> GetTopCarouselList(int num)
+        /***** Carousel ******/
+
+        public List<CarouselDataObject> GetCarouselList()
         {
-            String sqlString = "SELECT TOP " + num +
+            String sqlString = //"SELECT TOP " + num +
+                               "SELECT " + 
                                "       aaz01, aaz02, aaz03, aaz05  " +
                                " FROM aaz_file " +
                                " ORDER BY aaz01 DESC" +
@@ -473,7 +476,8 @@ namespace AupaWeb.Controllers
 
                         carouselDataObject.Aaz01 = dataReader.GetString(dataReader.GetOrdinal("Aaz01"));
                         carouselDataObject.Aaz02 = dataReader.GetString(dataReader.GetOrdinal("Aaz02"));
-                        carouselDataObject.Aaz03 = dataReader.GetString(dataReader.GetOrdinal("Aaz03"));
+                        carouselDataObject.Aaz03 = dataReader["Aaz03"] == DBNull.Value ? "" :
+                            dataReader.GetString(dataReader.GetOrdinal("Aaz03"));
                         carouselDataObject.Aaz05 = dataReader.GetString(dataReader.GetOrdinal("Aaz05"));
 
                         carouselsList.Add(carouselDataObject);
@@ -500,6 +504,91 @@ namespace AupaWeb.Controllers
             }
 
             return carouselsList;
-        }//End of getTOPPostsList
+        }//End of Carousel
+
+
+        /***** Announcement ****/
+        public String InsertAnnouncementData(AnnouncementDataObject announcementData )
+        {
+            String sqlString = "INSERT INTO aay_file ( " +
+                                    " aay01, aay02, aay03, aay04 " +
+                                    ") VALUES ( " +
+                                    " @val01, @val02, @val03, @val04 " +
+                                    ")";
+            OpenConnection();
+            actionResult = "SUCCESS";
+
+            try
+            {
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = sqlString;
+
+                sqlCommand.Parameters.AddWithValue("@val01", announcementData.Aay01);
+                sqlCommand.Parameters.AddWithValue("@val02", announcementData.Aay02);
+                sqlCommand.Parameters.AddWithValue("@val03", announcementData.Aay03);
+                sqlCommand.Parameters.AddWithValue("@val04", announcementData.Aay04);
+
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                actionResult = "FAIL" + ex.Message;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return actionResult;
+        }//End of Insert Into
+        public List<AnnouncementDataObject> GetFirstAnnouncement()
+        {
+            String sqlString = //"SELECT TOP " + num +
+                               "SELECT TOP 1 aay03  " +
+                               "  FROM aay_file " +
+                               " ORDER BY aay01 DESC" +
+                               "";
+            List<AnnouncementDataObject> announcementDataObjects = new List<AnnouncementDataObject>();
+
+            OpenConnection();
+            actionResult = "SUCCESS";
+            int carousel_flag = 1;
+
+            try
+            {
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = sqlString;
+
+                SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                if (dataReader.HasRows)
+                {
+                    while (dataReader.Read())
+                    {
+                        AnnouncementDataObject announcementDataObject = new AnnouncementDataObject();
+
+                        announcementDataObject.Aay03 = dataReader["Aay02"] == DBNull.Value ? "" :
+                            dataReader.GetString(dataReader.GetOrdinal("Aay02"));
+
+                        announcementDataObjects.Add(announcementDataObject);
+                        carousel_flag++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string v = "FAIL" + ex.Message;
+                actionResult = v;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            return announcementDataObjects;
+        }//End of Announcement
+
     }
 }

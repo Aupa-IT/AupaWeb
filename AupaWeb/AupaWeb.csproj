@@ -130,6 +130,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AnnouncementDataObject.cs" />
     <Compile Include="Models\CarouselDataObject.cs" />
     <Compile Include="Models\IndexModel.cs" />
     <Compile Include="Models\PageBean.cs" />
