@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AupaWeb", "AupaWeb\AupaWeb.csproj", "{F291A8FE-E7FC-46A6-A28D-4F1D47FF1910}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPage", "DemoPage\DemoPage.csproj", "{1F188EE0-38E1-4574-BEE9-E073FD331306}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCIdentitySource", "MVCIdentitySource\MVCIdentitySource.csproj", "{D9BCAC3F-A5EB-44AC-9CF7-7B8F51F99478}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{F291A8FE-E7FC-46A6-A28D-4F1D47FF1910}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F291A8FE-E7FC-46A6-A28D-4F1D47FF1910}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F291A8FE-E7FC-46A6-A28D-4F1D47FF1910}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F188EE0-38E1-4574-BEE9-E073FD331306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F188EE0-38E1-4574-BEE9-E073FD331306}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F188EE0-38E1-4574-BEE9-E073FD331306}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F188EE0-38E1-4574-BEE9-E073FD331306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9BCAC3F-A5EB-44AC-9CF7-7B8F51F99478}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9BCAC3F-A5EB-44AC-9CF7-7B8F51F99478}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9BCAC3F-A5EB-44AC-9CF7-7B8F51F99478}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9BCAC3F-A5EB-44AC-9CF7-7B8F51F99478}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
