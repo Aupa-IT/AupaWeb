@@ -590,5 +590,66 @@ namespace AupaWeb.Controllers
             return announcementDataObjects;
         }//End of Announcement
 
+        public List<UserBasicDataObject> GetUserBasicData()
+        {
+            String sqlString = //"SELECT TOP " + num +
+                               "SELECT * " +
+                               " FROM zza_file " +
+                               " ORDER BY zza01 DESC" +
+                               "";
+            List<UserBasicDataObject> userBasicDataObjectList = new List<UserBasicDataObject>();
+
+            OpenConnection();
+            actionResult = "SUCCESS";
+
+            try
+            {
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = sqlString;
+
+                SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                if (dataReader.HasRows)
+                {
+                    while (dataReader.Read())
+                    {
+                        UserBasicDataObject userBasicDataObject = new UserBasicDataObject();
+
+                        userBasicDataObject.Zza01 = dataReader["Zza01"] == DBNull.Value ? "" :
+                            dataReader.GetString(dataReader.GetOrdinal("Zza01"));
+                        userBasicDataObject.Zza02 = dataReader["Zza02"] == DBNull.Value ? "" :
+                            dataReader.GetString(dataReader.GetOrdinal("Zza02"));
+                        userBasicDataObject.Zza03 = dataReader["Zza03"] == DBNull.Value ? "" :
+                            dataReader.GetString(dataReader.GetOrdinal("Zza03"));
+                        userBasicDataObject.Zza04 = dataReader["Zza04"] == DBNull.Value ? "" :
+                            dataReader.GetString(dataReader.GetOrdinal("Zza04"));
+                        userBasicDataObject.Zza05 = dataReader["Zza05"] == DBNull.Value ? "" :
+                            dataReader.GetString(dataReader.GetOrdinal("Zza05"));
+                        userBasicDataObject.Zza06 = dataReader["Zza06"] == DBNull.Value ? "" :
+                            dataReader.GetString(dataReader.GetOrdinal("Zza06"));
+                        userBasicDataObject.Zza07 = dataReader["Zza07"] == DBNull.Value ? "" :
+                            dataReader.GetString(dataReader.GetOrdinal("Zza07"));
+                        userBasicDataObject.Zza08 = dataReader["Zza08"] == DBNull.Value ? "" :
+                            dataReader.GetString(dataReader.GetOrdinal("Zza08"));
+
+                        userBasicDataObjectList.Add(userBasicDataObject);
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string v = "FAIL" + ex.Message;
+                actionResult = v;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            return userBasicDataObjectList;
+        }
+
     }
 }
