@@ -651,12 +651,12 @@ namespace AupaWeb.Controllers
             return userBasicDataObjectList;
         }
 
-        public List<UserBasicDataObject> GetUserBasicDataByCriteria(string criteriaSql)
+        public List<UserBasicDataObject> GetUserBasicDataByCriteria(string colName, string colValue)
         {
             String sqlString = //"SELECT TOP " + num +
                                "SELECT * " +
                                "  FROM zza_file " +
-                               " WHERE " + criteriaSql +
+                               " WHERE " + colName + "=" +"'"+colValue+"'"+
                                " ORDER BY zza01 DESC" +
                                "";
             List<UserBasicDataObject> userBasicDataObjectList = new List<UserBasicDataObject>();
