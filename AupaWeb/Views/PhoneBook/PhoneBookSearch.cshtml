@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "PhoneBookSearch";
+}
+
+@model AupaWeb.Models.PhoneBookViewModel
+
+<h2>PhoneBookSearch</h2>
+
+<body class="bg-light">
+    <div class="container">
+        <div class="py-5 text-center">
+        </div>
+        @using (Html.BeginForm("SearchPhoneBook", "PhoneBook", FormMethod.Post))
+        {
+            <div class="col-md-4 order-md-2 mb-4" >
+                <p>
+                    <label for="ColValue">Search For</label>
+                    @Html.TextBoxFor(m => m.ColName, new { @class = "form-control" })
+                </p>
+                <p>
+                    <label for="ColName">Search By</label>
+                    @Html.DropDownListFor(m => m.ColValue, Model.SelectListItems, "Please select",
+                                     new { @style = "width: 260px;", @class = "form-control" })
+                </p>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        }
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div>
+
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th align="center" style="width: 200px">工號</th>
+                        <th style="width: 200px">職稱</th>
+                        <th style="width: 200px">姓名</th>
+                        <th style="width: 200px">英文姓名</th>
+                        <th style="width: 200px">信箱</th>
+                        <th style="width: 200px">成本中心</th>
+                        <th style="width: 200px">分機號碼</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <nav>
+
+            </nav>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div>
+            <h1></h1><h1></h1>
+            <h1></h1><h1></h1>
+        </div>
+    </div>
+</body>

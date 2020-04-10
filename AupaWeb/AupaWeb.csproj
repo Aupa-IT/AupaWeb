@@ -124,6 +124,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PageOperation.cs" />
+    <Compile Include="Controllers\PhonebookController.cs" />
+    <Compile Include="Controllers\PhoneBookSQLConnector.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\SQLServerConnector.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -133,9 +135,12 @@
     <Compile Include="Models\AnnouncementDataObject.cs" />
     <Compile Include="Models\CarouselDataObject.cs" />
     <Compile Include="Models\IndexModel.cs" />
+    <Compile Include="Models\POJO\OfficeDataObject.cs" />
     <Compile Include="Models\PageBean.cs" />
+    <Compile Include="Models\PhoneBookViewModel.cs" />
     <Compile Include="Models\PostDataObject.cs" />
     <Compile Include="Models\PostDataViewModel.cs" />
+    <Compile Include="Models\UserBasicDataObject.cs" />
     <Compile Include="Models\UserBasicObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -290,10 +295,11 @@
     <Content Include="Views\Post\EditPost.cshtml" />
     <Content Include="Views\User\SignIn.cshtml" />
     <Content Include="Views\Shared\_UserLayoutPage.cshtml" />
+    <Content Include="Views\PhoneBook\PhoneBookSearch.cshtml" />
+    <Content Include="Views\Shared\_PhoneBookLayoutPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
