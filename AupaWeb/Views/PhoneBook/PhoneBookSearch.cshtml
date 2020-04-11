@@ -16,11 +16,11 @@
             <div class="col-md-4 order-md-2 mb-4" >
                 <p>
                     <label for="ColValue">Search For</label>
-                    @Html.TextBoxFor(m => m.ColName, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.ColValue, new { @class = "form-control" })
                 </p>
                 <p>
                     <label for="ColName">Search By</label>
-                    @Html.DropDownListFor(m => m.ColValue, Model.SelectListItems, "Please select",
+                    @Html.DropDownListFor(m => m.Zza06, Model.SelectListItems, "Please select",
                                      new { @style = "width: 260px;", @class = "form-control" })
                 </p>
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -38,13 +38,19 @@
                         <th align="center" style="width: 200px">工號</th>
                         <th style="width: 200px">職稱</th>
                         <th style="width: 200px">姓名</th>
-                        <th style="width: 200px">英文姓名</th>
-                        <th style="width: 200px">信箱</th>
-                        <th style="width: 200px">成本中心</th>
                         <th style="width: 200px">分機號碼</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach (var eachUserData in Model.UserBasicDataList)
+                    {
+                        <tr>
+                            <td>@eachUserData.Zza01</td>
+                            <td>@eachUserData.Zza06</td>
+                            <td>@eachUserData.Zza04</td>
+                            <td>@eachUserData.Zza07</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
             <nav>

@@ -153,6 +153,8 @@ namespace AupaWeb.Controllers
                             dataReader.GetString(dataReader.GetOrdinal("Zza07"));
                         userBasicDataObject.Zza08 = dataReader["Zza08"] == DBNull.Value ? "" :
                             dataReader.GetString(dataReader.GetOrdinal("Zza08"));
+                        userBasicDataObject.Zza09 = dataReader["Zza09"] == DBNull.Value ? "" :
+                            dataReader.GetString(dataReader.GetOrdinal("Zza09"));
 
                         userBasicDataObjectList.Add(userBasicDataObject);
 
@@ -172,14 +174,29 @@ namespace AupaWeb.Controllers
             return userBasicDataObjectList;
         }
 
-        public List<UserBasicDataObject> GetUserBasicDataByCriteria(string criteria)
+        public List<UserBasicDataObject> GetUserBasicDataByCriteria(string where, string and)
         {
-            String sqlString = //"SELECT TOP " + num +
+            String sqlString;
+            if (and == "" || and.Length == 0)
+            {
+                sqlString = //"SELECT TOP " + num +
                                "SELECT * " +
                                "  FROM zza_file " +
-                               " WHERE " + criteria +
-                               " ORDER BY zza01 DESC" +
+                               " WHERE " + where +
+                               //"   AND " + and +
+                               " ORDER BY zza01 ASC" +
                                "";
+            }
+            else
+            {
+                sqlString = //"SELECT TOP " + num +
+                               "SELECT * " +
+                               "  FROM zza_file " +
+                               " WHERE " + where +
+                               "   AND " + and +
+                               " ORDER BY zza01 ASC" +
+                               "";
+            }
             List<UserBasicDataObject> userBasicDataObjectList = new List<UserBasicDataObject>();
 
             OpenConnection();
@@ -215,6 +232,8 @@ namespace AupaWeb.Controllers
                             dataReader.GetString(dataReader.GetOrdinal("Zza07"));
                         userBasicDataObject.Zza08 = dataReader["Zza08"] == DBNull.Value ? "" :
                             dataReader.GetString(dataReader.GetOrdinal("Zza08"));
+                        userBasicDataObject.Zza09 = dataReader["Zza09"] == DBNull.Value ? "" :
+                            dataReader.GetString(dataReader.GetOrdinal("Zza09"));
 
                         userBasicDataObjectList.Add(userBasicDataObject);
 

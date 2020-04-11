@@ -15,6 +15,7 @@ namespace AupaWeb.Models
         private string zza06;
         private string zza07;
         private string zza08;
+        private string zza09;
 
         public string Zza01 { get => zza01; set => zza01 = value; }
         public string Zza02 { get => zza02; set => zza02 = value; }
@@ -24,5 +25,6 @@ namespace AupaWeb.Models
         public string Zza06 { get => zza06; set => zza06 = value; }
         public string Zza07 { get => zza07; set => zza07 = value; }
         public string Zza08 { get => zza08; set => zza08 = value; }
+        public string Zza09 { get => zza09; set => zza09 = value; }
     }
 }

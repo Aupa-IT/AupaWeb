@@ -22,15 +22,33 @@ namespace AupaWeb.Controllers
         [HttpPost, ActionName("SearchPhoneBook")]
         public ActionResult SearchPhoneBook(PhoneBookViewModel viewModel)
         {
-            string colName = viewModel.ColName;
-            string colValue = viewModel.ColValue;
-            string sqlString = " zza05 = '" + colValue + "'";
+            string sqlWhereString;
+            string sqlAndString;
+            if (viewModel.ColValue == "" || viewModel.ColValue.Length==0)
+            {
+                sqlWhereString = " 1= 1";
+            }
+            else
+            {
+                sqlWhereString = "zza04 LIKE '%" + viewModel.ColValue + "%' ";
+            }
+            if (viewModel.Zza06 == "" || viewModel.Zza06 == null)
+            {
+                sqlAndString = "";
+            }
+            else
+            {
+                sqlAndString = " zza06 = '" + viewModel.Zza06 + "' ";
+            }
+
+                
 
             PhoneBookSQLConnector phoneBookSQLConnector = new PhoneBookSQLConnector();
 
             PhoneBookViewModel phoneBookViewModel = new PhoneBookViewModel();
-            phoneBookViewModel.UserBasicDataObjects = phoneBookSQLConnector.GetUserBasicDataByCriteria(sqlString);
-            
+            phoneBookViewModel.UserBasicDataList = phoneBookSQLConnector.GetUserBasicDataByCriteria(sqlWhereString, sqlAndString);
+            phoneBookViewModel.SelectListItems = phoneBookSQLConnector.getOfficeItem();
+
             TempData["phoneBookViewModel"] = phoneBookViewModel;
 
             return Redirect("BackToPhoneBookSearch"); ;

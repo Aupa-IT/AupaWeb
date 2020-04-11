@@ -8,14 +8,14 @@ namespace AupaWeb.Models
 {
     public class PhoneBookViewModel
     {
-        List<SelectListItem> selectListItems = new List<SelectListItem>();
-        List<UserBasicDataObject> userBasicDataObjects = new List<UserBasicDataObject>();
-        private string colName;
         private string colValue;
+        private string zza06;
+        List<SelectListItem> selectListItems = new List<SelectListItem>();
+        List<UserBasicDataObject> userBasicDataList = new List<UserBasicDataObject>();
 
         public List<SelectListItem> SelectListItems { get => selectListItems; set => selectListItems = value; }
-        public List<UserBasicDataObject> UserBasicDataObjects { get => userBasicDataObjects; set => userBasicDataObjects = value; }
-        public string ColName { get => colName; set => colName = value; }
+        public List<UserBasicDataObject> UserBasicDataList { get => userBasicDataList; set => userBasicDataList = value; }
         public string ColValue { get => colValue; set => colValue = value; }
+        public string Zza06 { get => zza06; set => zza06 = value; }
     }
 }
