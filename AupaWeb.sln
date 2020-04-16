@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AupaWeb", "AupaWeb\AupaWeb.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCIdentitySource", "MVCIdentitySource\MVCIdentitySource.csproj", "{D9BCAC3F-A5EB-44AC-9CF7-7B8F51F99478}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBookService", "PhoneBookService\PhoneBookService.csproj", "{F63FABF4-B716-4B64-9679-8E0427C89095}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D9BCAC3F-A5EB-44AC-9CF7-7B8F51F99478}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9BCAC3F-A5EB-44AC-9CF7-7B8F51F99478}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9BCAC3F-A5EB-44AC-9CF7-7B8F51F99478}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F63FABF4-B716-4B64-9679-8E0427C89095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F63FABF4-B716-4B64-9679-8E0427C89095}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F63FABF4-B716-4B64-9679-8E0427C89095}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F63FABF4-B716-4B64-9679-8E0427C89095}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
