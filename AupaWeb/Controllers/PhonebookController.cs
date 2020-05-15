@@ -51,13 +51,37 @@ namespace AupaWeb.Controllers
 
             TempData["phoneBookViewModel"] = phoneBookViewModel;
 
-            return Redirect("BackToPhoneBookSearch"); ;
+            return Redirect("BackToPhoneBookSearch");
         }
 
         public ActionResult BackToPhoneBookSearch()
         {
             PhoneBookViewModel phoneBookViewModel = (PhoneBookViewModel)TempData["phoneBookViewModel"];
             return View("PhoneBookSearch", phoneBookViewModel);
+        }
+
+        public ActionResult SearchPhoneBookButton(string Zza06)
+        {
+            string sqlAndString;
+            
+            if (Zza06 == "" || Zza06 == null)
+            {
+                sqlAndString = "";
+            }
+            else
+            {
+                sqlAndString = " zza06 = '" + Zza06 + "' ";
+            }
+
+            PhoneBookSQLConnector phoneBookSQLConnector = new PhoneBookSQLConnector();
+
+            PhoneBookViewModel phoneBookViewModel = new PhoneBookViewModel();
+            phoneBookViewModel.UserBasicDataList = phoneBookSQLConnector.GetUserBasicDataByCriteria(" 1=1 ", sqlAndString);
+            phoneBookViewModel.SelectListItems = phoneBookSQLConnector.getOfficeItem();
+
+            TempData["phoneBookViewModel"] = phoneBookViewModel;
+
+            return Redirect("BackToPhoneBookSearch");
         }
 
     }

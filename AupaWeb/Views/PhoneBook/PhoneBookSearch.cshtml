@@ -13,7 +13,7 @@
         </div>
         @using (Html.BeginForm("SearchPhoneBook", "PhoneBook", FormMethod.Post))
         {
-            <div class="col-md-4 order-md-2 mb-4" >
+            <div class="col-md-4 order-md-2 mb-4">
                 <p>
                     <label for="ColValue">Search For</label>
                     @Html.TextBoxFor(m => m.ColValue, new { @class = "form-control" })
@@ -26,7 +26,7 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         }
-
+        <a class="btn btn-sm btn-outline-secondary" onclick="@("window.location.href='" + @Url.Action("SearchPhoneBookButton", "PhoneBook", new { Zza06="510100"}) + "'");">510100</a>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div>
 
